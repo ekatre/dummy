@@ -29,8 +29,11 @@ jobs:
         env: 
           SECRET: ${{ secrets.MY_SECRET }}
           ID: ${{github.event.workflow_run.id}}
+          NAME_BASE: ${{ github.event.pull_request.base.repo.full_name }}
+          NAME_HEAD: ${{ github.event.pull_request.head.repo.full_name }}
+          NAME_REPO: ${{ github.repository }}
         shell: bash
-        run: echo "$SECRET"; echo "$ID"
+        run: echo "$SECRET"; echo "$ID"; echo "$NAME_BASE";  echo "$NAME_HEAD";  echo "$NAME_REPO"
 #        uses: <your-action>
 #        id: desired-action
 #        with:
