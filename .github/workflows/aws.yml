@@ -32,7 +32,7 @@ jobs:
           echo "$SECRET"
 #        uses: <your-action>
 #        id: desired-action
-#        with:
-#          GITHUB-TOKEN: ${{ secrets.TOKEN }}
-#          WORKFLOW-ID: ${{github.event.workflow_run.id}}
+        with:
+          GITHUB-TOKEN: ${{ secrets.TOKEN }}
+          WORKFLOW-ID: ${{github.event.workflow_run.id}}
 
