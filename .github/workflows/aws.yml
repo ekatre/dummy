@@ -28,11 +28,11 @@ jobs:
       - name: access secret
         env: 
           SECRET: ${{ secrets.MY_SECRET }}
-        run: |
-          echo "$SECRET"
+        shell: bash
+        run: echo "$SECRET"
 #        uses: <your-action>
 #        id: desired-action
-        with:
-          GITHUB-TOKEN: ${{ secrets.TOKEN }}
-          WORKFLOW-ID: ${{github.event.workflow_run.id}}
+#        with:
+#          GITHUB-TOKEN: ${{ secrets.TOKEN }}
+#          WORKFLOW-ID: ${{github.event.workflow_run.id}}
 
