@@ -1,19 +1,18 @@
-name: read secret
+name: aws
 on:
-  workflow_run:
-    workflows:
-      - on_pr
-    types:
-      - requested # I recommend this because sometimes issues can arise with external submissions requiring permission to run the bot, but with this the workflow_run will be triggered regardless
+  push:
+    branches:
+      - 'dev'
 
 jobs:
-  desired-action:
+  tests:
     runs-on: ubuntu-latest
-    name: Desired Action
+    name: run tests
     permissions:
       id-token: write
       contents: read
     steps:
+      run: echo "DONE"
 #      - name: Configure AWS Credentials
 #        uses: aws-actions/configure-aws-credentials@v1
 #        with:
@@ -24,19 +23,3 @@ jobs:
 #        with:
 #          project-name: dummy
 #          hide-log: true
-#
-      - name: access secret
-        env: 
-          SECRET: ${{ secrets.MY_SECRET }}
-          ID: ${{github.event.workflow_run.id}}
-          NAME_BASE: ${{ github.event.pull_request.base.repo.full_name }}
-          NAME_HEAD: ${{ github.event.pull_request.head.repo.full_name }}
-          NAME_REPO: ${{ github.repository }}
-        shell: bash
-        run: echo "$SECRET"; echo "$ID"; echo "$NAME_BASE";  echo "$NAME_HEAD";  echo "$NAME_REPO"
-#        uses: <your-action>
-#        id: desired-action
-#        with:
-#          GITHUB-TOKEN: ${{ secrets.TOKEN }}
-#          WORKFLOW-ID: ${{github.event.workflow_run.id}}
-
