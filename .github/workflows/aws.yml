@@ -1,25 +1,38 @@
-name: aws
+name: read secret
 on:
-  pull_request_review:
-    types: [submitted]
+  workflow_run:
+    workflows:
+      - on_pr
+    types:
+      - requested # I recommend this because sometimes issues can arise with external submissions requiring permission to run the bot, but with this the workflow_run will be triggered regardless
 
 jobs:
-  aws:
-    name: AWS Pipeline (private)
-    if: ${{ github.event.review.state == 'approved'}}
+  desired-action:
     runs-on: ubuntu-latest
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    name: Desired Action
     permissions:
       id-token: write
       contents: read
     steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-        aws-region: eu-west-1
-    - name: Run AWS Pipeline
-      uses: openhwgroup/aws-codebuild-run-build@master
-      with:
-        project-name: dummy
-        hide-log: true
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+#          aws-region: eu-west-1
+#      - name: Run AWS Pipeline
+#        uses: openhwgroup/aws-codebuild-run-build@master
+#        with:
+#          project-name: dummy
+#          hide-log: true
+#
+      - name: access secret
+        env: 
+          SECRET: ${{ secrets.MY_SECRET }}
+        run: |
+          echo "$SECRET"
+#        uses: <your-action>
+#        id: desired-action
+#        with:
+#          GITHUB-TOKEN: ${{ secrets.TOKEN }}
+#          WORKFLOW-ID: ${{github.event.workflow_run.id}}
+
