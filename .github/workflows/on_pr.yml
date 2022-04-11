@@ -1,12 +1,15 @@
+name: merge_to_dev
 on: 
   pull_request_review:
     types: [submitted]
-name: on_pr
 jobs:
-  dummy-workflow:
-    if: ${{ github.event.review.state == 'approved'}}
+  check_target:
+    if: ${{ github.event.review.state == 'approved' }}
     runs-on: ubuntu-latest
-    name: dummy workflow
+    name: check target branch
     steps:
-      - name: Explanation
-        run: echo "this is a dummy workflow that triggers a workflow_run; it's necessary because otherwise the repo secrets will not be in scope for externally forked pull requests"
+      - name: check base
+        - if: ${{ github.event.pull_request.base.ref == 'dev' }}
+        run: exit 0
+        - if: ${{ github.event.pull_request.base.ref != 'dev' }}
+        run: exit 1
