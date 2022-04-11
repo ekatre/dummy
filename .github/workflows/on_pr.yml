@@ -6,10 +6,8 @@ jobs:
   check_target:
     if: ${{ github.event.review.state == 'approved' }}
     runs-on: ubuntu-latest
-    name: check target branch
     steps:
-      - name: check base
-        - if: ${{ github.event.pull_request.base.ref == 'dev' }}
+      - if: ${{ github.event.pull_request.base.ref == 'dev' }}
         run: exit 0
-        - if: ${{ github.event.pull_request.base.ref != 'dev' }}
+      - if: ${{ github.event.pull_request.base.ref != 'dev' }}
         run: exit 1
