@@ -1,10 +1,9 @@
 name: check_target
 on: 
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    types: [opened, reopened]
 jobs:
   check_target:
-    if: ${{ github.event.review.state == 'approved' }}
     runs-on: ubuntu-latest
     steps:
       - if: ${{ github.event.pull_request.base.ref == 'dev' }}
