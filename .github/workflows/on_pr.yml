@@ -1,4 +1,4 @@
-name: merge_to_dev
+name: check_target
 on: 
   pull_request_review:
     types: [submitted]
