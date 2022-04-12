@@ -18,4 +18,4 @@ jobs:
           title: Automerge to master
           body: auromerge to master
           branch: dev
-          base: main          
+          base: master          
