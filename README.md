@@ -1,1 +1,1 @@
-pippo 2
+pippo
