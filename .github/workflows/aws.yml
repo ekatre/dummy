@@ -13,13 +13,5 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: eu-west-1
       - name: Run AWS Pipeline
-        uses: openhwgroup/aws-codebuild-run-build@master
-        with:
-          project-name: dummy
-          hide-log: true
+        run: exit 0
