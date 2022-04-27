@@ -7,15 +7,29 @@ on:
       - completed
 
 jobs:
-  merge_to_master:
-    if: github.event.workflow_run.conclusion == 'success'
+  pull_request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: peter-evans/create-pull-request@v4
-        with: 
-          commit-message: automerge to master
-          title: Automerge to master
-          body: auromerge to master
-          branch: master
-          base: dev        
+    - uses: actions/checkout@v2
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "master"
+        pr_title: "Automatic PR dev->master"
+        pr_body: "AWS tests passed. `dev` branch can be merged to `master`."
+        pr_reviewer: "ekatre"
+        pr_allow_empty: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+#  merge_to_master:
+#    if: github.event.workflow_run.conclusion == 'success'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: peter-evans/create-pull-request@v4
+#        with: 
+#          commit-message: automerge to master
+#          title: Automerge to master
+#          body: auromerge to master
+#          branch: master
+#          base: dev        
